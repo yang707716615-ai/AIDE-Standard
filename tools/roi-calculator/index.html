@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI员工ROI计算器 - AIDE Standard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .result-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        
+        .result-box h2 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .formula {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #1976d2;
+        }
+        
+        .formula strong {
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 AI员工ROI计算器</h1>
+        <p class="subtitle">基于AIDE标准 - 计算你的AI员工投资回报</p>
+        
+        <div class="section">
+            <h2>📊 传统人工方式</h2>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>人工耗时（小时/任务）</label>
+                    <input type="number" id="manualTime" value="3" step="0.5">
+                </div>
+                <div class="input-group">
+                    <label>人工时薪（元）</label>
+                    <input type="number" id="hourlyRate" value="100">
+                </div>
+            </div>
+            <div class="input-group">
+                <label>每月任务量（次）</label>
+                <input type="number" id="taskCount" value="30">
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>⚡ AI员工方式</h2>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>AI辅助耗时（小时/任务）</label>
+                    <input type="number" id="aiTime" value="0.5" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label>AI工具订阅费（元/月）</label>
+                    <input type="number" id="aiSubscription" value="200">
+                </div>
+            </div>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>AI调用成本（元/任务）</label>
+                    <input type="number" id="aiCost" value="0.5" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label>初期配置成本（元，一次性）</label>
+                    <input type="number" id="setupCost" value="500">
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>💰 创造价值（可选）</h2>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>产量提升带来的额外收益（元/月）</label>
+                    <input type="number" id="extraRevenue" value="2000">
+                </div>
+                <div class="input-group">
+                    <label>质量提升带来的收益（元/月）</label>
+                    <input type="number" id="qualityRevenue" value="1000">
+                </div>
+            </div>
+        </div>
+        
+        <button class="btn" onclick="calculateROI()">🚀 计算ROI</button>
+        
+        <div class="result-box" id="resultBox" style="display: none;">
+            <h2>📈 计算结果</h2>
+            <div class="result-item">
+                <span>传统方式月成本：</span>
+                <span id="manualCost">¥0</span>
+            </div>
+            <div class="result-item">
+                <span>AI员工月成本：</span>
+                <span id="aiMonthlyCost">¥0</span>
+            </div>
+            <div class="result-item">
+                <span>节省时间价值：</span>
+                <span id="timeValue">¥0</span>
+            </div>
+            <div class="result-item">
+                <span>创造价值：</span>
+                <span id="createdValue">¥0</span>
+            </div>
+            <div class="result-item">
+                <span>首月ROI（含配置成本）：</span>
+                <span id="firstMonthROI">0%</span>
+            </div>
+            <div class="result-item">
+                <span>次月ROI（稳定期）：</span>
+                <span id="secondMonthROI">0%</span>
+            </div>
+            <div class="result-item">
+                <span>每月净收益：</span>
+                <span id="monthlyProfit">¥0</span>
+            </div>
+        </div>
+        
+        <div class="formula">
+            <strong>📐 计算公式</strong>
+            ROI = (节省时间价值 + 创造价值 - AI成本) / AI成本 × 100%<br><br>
+            节省时间价值 = (人工耗时 - AI耗时) × 时薪 × 任务量<br>
+            创造价值 = 产量提升收益 + 质量提升收益<br>
+            AI成本 = 订阅费 + (调用成本 × 任务量)
+        </div>
+    </div>
+    
+    <script>
+        function calculateROI() {
+            // 获取输入值
+            const manualTime = parseFloat(document.getElementById('manualTime').value) || 0;
+            const hourlyRate = parseFloat(document.getElementById('hourlyRate').value) || 0;
+            const taskCount = parseFloat(document.getElementById('taskCount').value) || 0;
+            const aiTime = parseFloat(document.getElementById('aiTime').value) || 0;
+            const aiSubscription = parseFloat(document.getElementById('aiSubscription').value) || 0;
+            const aiCost = parseFloat(document.getElementById('aiCost').value) || 0;
+            const setupCost = parseFloat(document.getElementById('setupCost').value) || 0;
+            const extraRevenue = parseFloat(document.getElementById('extraRevenue').value) || 0;
+            const qualityRevenue = parseFloat(document.getElementById('qualityRevenue').value) || 0;
+            
+            // 计算
+            const manualCost = manualTime * hourlyRate * taskCount;
+            const aiMonthlyCost = aiSubscription + (aiCost * taskCount);
+            const timeSaved = (manualTime - aiTime) * hourlyRate * taskCount;
+            const createdValue = extraRevenue + qualityRevenue;
+            const monthlyProfit = timeSaved + createdValue - aiMonthlyCost;
+            
+            const firstMonthROI = ((timeSaved + createdValue - aiMonthlyCost - setupCost) / (aiMonthlyCost + setupCost) * 100).toFixed(0);
+            const secondMonthROI = ((timeSaved + createdValue - aiMonthlyCost) / aiMonthlyCost * 100).toFixed(0);
+            
+            // 显示结果
+            document.getElementById('manualCost').textContent = '¥' + manualCost.toLocaleString();
+            document.getElementById('aiMonthlyCost').textContent = '¥' + aiMonthlyCost.toLocaleString();
+            document.getElementById('timeValue').textContent = '¥' + timeSaved.toLocaleString();
+            document.getElementById('createdValue').textContent = '¥' + createdValue.toLocaleString();
+            document.getElementById('firstMonthROI').textContent = firstMonthROI + '%';
+            document.getElementById('secondMonthROI').textContent = secondMonthROI + '%';
+            document.getElementById('monthlyProfit').textContent = '¥' + monthlyProfit.toLocaleString();
+            
+            // 显示结果框
+            document.getElementById('resultBox').style.display = 'block';
+            
+            // 滚动到结果
+            document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
