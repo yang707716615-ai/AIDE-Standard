@@ -1,6 +1,6 @@
 <!-- AIDE Standard - README.md -->
 <p align="center">
-  <img src="assets/logo.png" width="180" alt="AIDE Standard Logo" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 20px;">
+  <img src="assets/Logo.png" width="180" alt="AIDE Standard Logo" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 20px;">
 </p>
 
 <h1 align="center">AIDE Standard</h1>
